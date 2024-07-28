@@ -1,6 +1,8 @@
 # PRM | Project Manager
 
-A simple project creator and runner made in C++. This project uses [nlohmann JSON](https://github.com/nlohmann/json) for configuration. STILL A WORK IN PROGRESS.
+A simple project creator and runner made in C++.  
+This project uses [nlohmann JSON](https://github.com/nlohmann/json) for configuration.  
+STILL A WORK IN PROGRESS.
 
 ## Installation
 ```bash
