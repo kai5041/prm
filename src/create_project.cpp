@@ -40,6 +40,12 @@ int create_project(std::vector<std::string> args) {
   std::string project_name = args[0];
   std::string language = args[1];
 
+  if (fs::exists(project_name)) {
+    std::cerr << "Error: Project " << project_name << " already exists"
+              << std::endl;
+    return 1;
+  }
+
   fs::create_directory(project_name);
 
   if (language == "c_make" || language == "cpp_make") {
@@ -53,10 +59,10 @@ int create_project(std::vector<std::string> args) {
                        (language == "c_make" ? "main.c" : "main.cpp"));
     file << (language == "c_make"
                  ? "#include <stdio.h>\n\nint main() "
-                   "{\nprintf(\"Hello world!\");\nreturn 0;\n}\n"
+                   "{\n  printf(\"Hello world!\");\n  return 0;\n}\n"
                  : "#include <iostream>\n\nusing "
-                   "namespace std;\n\nint main() {\ncout << "
-                   "\"Hello world!\";\n}\n")
+                   "namespace std;\n\nint main() {\n  cout << "
+                   "\"Hello world!\";\n  return 0;\n}\n")
          << std::endl;
 
     file.close();
