@@ -16,7 +16,7 @@ int run(std::vector<std::string> args);
 static const std::vector<Function> commands = {
     {"create", create_project, 2, create_help},
     {"new", create_project, 2, create_help},
-    {"run", run, 0, nullptr}};
+    {"run", run, -1, nullptr}};
 
 namespace fs = std::filesystem;
 

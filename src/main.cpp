@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
 
   for (auto &c : prm::commands) {
     if (c.name == command) {
-      if (c.args_expected != args.size()) {
+      if (c.args_expected != args.size() && c.args_expected != -1) {
         c.help();
         return 1;
       }

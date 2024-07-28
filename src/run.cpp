@@ -18,7 +18,13 @@ int run(std::vector<std::string> args) {
   if (language == "c_make" || language == "cpp_make") {
     std::string command = "make";
     system(command.c_str());
-    system(executable.c_str());
+
+    command = executable + " ";
+    for (auto &arg : args) {
+      command += arg + " ";
+    }
+
+    system(command.c_str());
   }
 
   return 0;
