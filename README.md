@@ -1,31 +1,26 @@
-# PRM | Project Manager
+# PRM | A project generator and runner made in C++
 
-A simple project creator and runner made in C++.  
-This project uses [nlohmann JSON](https://github.com/nlohmann/json) for configuration.  
-STILL A WORK IN PROGRESS.
+## Description
 
-## Installation
-```bash
-$ git clone https://github.com/kai5041/prm.git
-$ cd prm
-$ make
-# add executable inside build to $PATH 
-```
+PRM is a project generator and runner made in C++, currently supporting C and C++ (version 0.0.1). This project was created to ease the process of creating and running projects. Further development is expected.
 
 ## Usage
 ```bash
-# Create a project
-$ prm create <project_name> <language>
-# or with
-$ prm new <project_name> <language>
+# create a project
+$ prm new project_name cpp make
+$ cd project_name
 
-# Run project
-project$ prm run
+# build and run
+$ prm run
 ```
 
-## Supported languages
-- c_make
-- cpp_make
+## Installation
 
-## Contacts
-Discord: `kai5041.___`
+```bash
+git clone https://github.com/kai5041/prm.git
+cd prm
+make
+cd make
+
+# position the executable in your PATH
+```

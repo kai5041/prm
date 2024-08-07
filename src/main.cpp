@@ -1,33 +1,42 @@
 #include <iostream>
 
-#include <prm/core.hpp>
+#include <prm/prm.hpp>
+
+const std::string PRM_VERSION = "0.0.1";
 
 int main(int argc, char **argv) {
-
   if (argc == 1) {
-    std::printf("PRM version %s\n", PRM_VERSION);
+    std::printf("PRM | A Project Manager VERSION %s\n", PRM_VERSION.c_str());
     return 0;
   }
 
   std::string command = argv[1];
   std::vector<std::string> args;
 
-  for (int i = 2; i < argc; i++) {
+  for (int i = 2; i < argc; i++)
     args.push_back(argv[i]);
-  }
 
-  for (auto &c : prm::commands) {
-    if (c.name == command) {
-      if (c.args_expected != args.size() && c.args_expected != -1) {
-        c.help();
-        return 1;
-      }
+  prm::Function *func = nullptr;
+  int flag = 0;
 
-      return c.func(args);
+  for (auto &f : prm::functions) {
+    if (f.name == command) {
+      func = &f;
+      break;
     }
   }
 
-  std::cerr << "Error: Invalid command " << command << std::endl;
+  if (func == nullptr) {
+    std::printf("Unknown command: %s\n", command.c_str());
+    return 1;
+  }
 
-  return 1;
+  flag = func->exec(args);
+
+  if (flag == 2) {
+    std::printf("Usage: %s\n", func->usage.c_str());
+    return 1;
+  }
+
+  return flag;
 }

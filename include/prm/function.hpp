@@ -7,13 +7,14 @@
 
 namespace prm {
 
+typedef const std::vector<std::string> &Args;
+
 struct Function {
   std::string name;
-  std::function<int(std::vector<std::string>)> func;
-  int args_expected;
-  std::function<void()> help;
+  std::string usage;
+  std::function<int(Args)> exec;
 };
 
-} // namespace prm
+}; // namespace prm
 
 #endif
