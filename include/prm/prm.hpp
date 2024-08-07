@@ -6,6 +6,10 @@
 #include <filesystem>
 #include <utility>
 
+#ifndef PRM_VERSION
+#define PRM_VERSION "0.0.1"
+#endif
+
 namespace fs = std::filesystem;
 
 namespace prm {
@@ -16,6 +20,7 @@ void create_cpp_project(const std::string &name, const std::string &builder);
 
 int build_project(Args args);
 int run_project(Args args);
+
 
 static std::vector<prm::Function> functions = {
     {"new", "prm new <name> <language> [options]", prm::new_project},

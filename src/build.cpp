@@ -19,6 +19,14 @@ int prm::build_project(Args args) {
 
   in.close();
 
+  std::string version = config["prm_version"];
+
+  if (version != PRM_VERSION) {
+    std::printf("Version mismatch, expected: %s, got %s\n", PRM_VERSION,
+                version.c_str());
+    return 1;
+  }
+
   std::string builder = config["builder"];
 
   int flag = 0;

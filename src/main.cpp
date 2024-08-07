@@ -2,11 +2,9 @@
 
 #include <prm/prm.hpp>
 
-const std::string PRM_VERSION = "0.0.1";
-
 int main(int argc, char **argv) {
   if (argc == 1) {
-    std::printf("PRM | A Project Manager VERSION %s\n", PRM_VERSION.c_str());
+    std::printf("PRM | A Project Manager VERSION %s\n", PRM_VERSION);
     return 0;
   }
 

@@ -20,6 +20,7 @@ int prm::new_project(const Args &project_args) {
       {"language", language},
       {"builder", builder},
       {"vcs", vcs},
+      {"prm_version", PRM_VERSION},
   };
 
   // Check if language is supported
@@ -60,6 +61,8 @@ int prm::new_project(const Args &project_args) {
     #else
       project_config += {"target", "build/" + name};
     #endif
+
+  
 
 
   } else {
