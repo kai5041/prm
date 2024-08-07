@@ -20,7 +20,10 @@ $ prm run
 git clone https://github.com/kai5041/prm.git
 cd prm
 make
-cd make
+cd build
 
-# position the executable in your PATH
+# move the executable in your PATH
 ```
+
+## Credits
+- [nlohmann_json](https://github.com/nlohmann/json): JSON for Modern C++
