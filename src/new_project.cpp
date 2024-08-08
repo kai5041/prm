@@ -16,11 +16,8 @@ int prm::new_project(const Args &project_args) {
 
   // Create project configuration
   nlohmann::json project_config{
-      {"name", name},
-      {"language", language},
-      {"builder", builder},
-      {"vcs", vcs},
-      {"prm_version", PRM_VERSION},
+      {"name", name}, {"language", language},       {"builder", builder},
+      {"vcs", vcs},   {"prm_version", PRM_VERSION},
   };
 
   // Check if language is supported
@@ -56,17 +53,18 @@ int prm::new_project(const Args &project_args) {
   if (language == "cpp") {
     create_cpp_project(name, builder);
 
-    #ifdef _WIN32
-      project_config += {"target", "build/" + name + ".exe"};
-    #else
-      project_config += {"target", "build/" + name};
-    #endif
-
-  
-
+#ifdef _WIN32
+    project_config += {"target", "build/" + name + ".exe"};
+#else
+    project_config += {"target", "build/" + name};
+#endif
 
   } else {
     std::printf("Language '%s' is not implemented yet\n", language.c_str());
+  }
+
+  if (vcs == "git") {
+    std::system(("git init -q " + name).c_str());
   }
 
   // Write project configuration to JSON file
