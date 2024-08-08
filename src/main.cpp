@@ -8,11 +8,10 @@ int main(int argc, char **argv) {
     return 0;
   }
 
-  std::string command = argv[1];
-  std::vector<std::string> args;
+  prm::prm_ctx ctx;
 
-  for (int i = 2; i < argc; i++)
-    args.push_back(argv[i]);
+  std::string command = argv[1];
+  ctx.set_args(std::vector<std::string>(argv, argv + argc));
 
   prm::Function *func = nullptr;
   int flag = 0;
@@ -29,7 +28,7 @@ int main(int argc, char **argv) {
     return 1;
   }
 
-  flag = func->exec(args);
+  flag = func->exec(ctx);
 
   if (flag == 2) {
     std::printf("Usage: %s\n", func->usage.c_str());

@@ -4,15 +4,19 @@
 #include <fstream>
 #include <iostream>
 
-int prm::new_project(const Args &project_args) {
-  if (project_args.size() < 2)
+int prm::new_project(prm_ctx &ctx) {
+  if (ctx.args_size() < 2)
     return 2; // Not enough arguments
 
+  for (int i = 0; i < ctx.args_size(); i++) {
+    std::cout << ctx.get_arg(i) << std::endl;
+  }
+
   // Extract arguments
-  const std::string name = project_args[0];
-  const std::string language = project_args[1];
-  const std::string builder = project_args.size() > 2 ? project_args[2] : "";
-  const std::string vcs = project_args.size() > 3 ? project_args[3] : "";
+  const std::string name = ctx.get_arg(0);
+  const std::string language = ctx.get_arg(1);
+  const std::string builder = ctx.args_size() > 2 ? ctx.get_arg(2) : "";
+  const std::string vcs = ctx.args_size() > 3 ? ctx.get_arg(3) : "";
 
   // Create project configuration
   nlohmann::json project_config{
@@ -68,10 +72,9 @@ int prm::new_project(const Args &project_args) {
   }
 
   // Write project configuration to JSON file
-  std::ofstream file;
-  file.open(name + "/prm_config.json");
-  file << project_config.dump(2);
-  file.close();
+  ctx.open(name + "/prm_config.json");
+  ctx.write(project_config.dump(2));
+  ctx.close();
 
   return 0;
 }

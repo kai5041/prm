@@ -6,27 +6,25 @@
 
 #include <libs/json.hpp>
 
-int prm::run_project(Args args) {
+int prm::run_project(prm::prm_ctx &ctx) {
 
-  std::ifstream in("prm_config.json");
-  if (!in.is_open()) {
+  ctx.open("prm_config.json");
+  if (!ctx.is_open()) {
     std::printf("Could not open prm_config.json\n");
     return 1;
   }
 
-  nlohmann::json config;
-  in >> config;
-  in.close();
+  nlohmann::json config = nlohmann::json::parse(ctx.read());
+  ctx.close();
 
   std::string builder = config["builder"];
 
   int flag = 0;
 
   if (builder == "make") {
-    flag = build_project(args);
+    flag = build_project(ctx);
 
     if (flag)
-
       return flag;
   } else {
     std::printf("Unknown builder\n");
@@ -35,8 +33,8 @@ int prm::run_project(Args args) {
 
   std::string target = config["target"];
 
-  for (auto &arg : args) {
-    target += " " + arg;
+  for (int i = 0; i < ctx.args_size(); i++) {
+    target += " " + ctx.get_arg(i);
   }
 
 #ifdef _WIN32

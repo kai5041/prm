@@ -5,19 +5,17 @@
 
 #include <libs/json.hpp>
 
-int prm::build_project(Args args) {
+int prm::build_project(prm_ctx &ctx) {
 
-  std::ifstream in("prm_config.json");
-  if (!in.is_open()) {
+  ctx.open("prm_config.json");
+  if (!ctx.is_open()) {
     std::printf("Could not open prm_config.json\n");
     return 1;
   }
 
-  nlohmann::json config;
-
-  in >> config;
-
-  in.close();
+  nlohmann::json config = nlohmann::json::parse(ctx.read());
+  
+  ctx.close();
 
   std::string version = config["prm_version"];
 
